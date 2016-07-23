@@ -18,14 +18,14 @@ class Course():
     def __init__(self,name):
 
         self.category = ""
-        self.name = name
+        self.name = name #.trim()
         self.number = ""
         self.grades = ""
         self.schoolcreds = ""
         self.uccreds = ""
-        self.prereqs = ""
-        self.interest = "optional!!" #opt
-        self.linked = "optional!!!" #opt
+        self.prereqs = "None"
+        self.interest = "None" #opt
+        self.linked = "N/A" #opt
         self.description = ""
 
 def main():
@@ -36,9 +36,18 @@ def main():
     f = open(filepath)
 
     # Define regexpressions
-    categories = r'^(English|Social Science|World Language|Mathematics|Biological Sciences|Physical Sciences)$'
+    categories = r'^(English|Social Sciences|World Language|Mathematics|Biological Sciences|Physical Sciences)$'
     pCats = re.compile(categories)
     pCourseNameNum = re.compile(r'^(.*)((\d{6}) - (\d{6}))$')
+    pCourseGrade = re.compile(r'^(Grades: )(.*)$')
+    pCourseCredits = re.compile(r'^(Credits: )(.*)$')
+    pCourseUCCreds = re.compile(r'^(UC/CSU: )(.*)$')
+    pCoursePrereqs = re.compile(r'^(Recommended Prerequisites: )(.*)$')
+    pCourseInterest = re.compile(r'^(Interest: )(.*)$')
+    pCourseLinked = re.compile(r'(Linked Course: )(.*)$')
+    pCourseTrash = re.compile(r'^[0-9]+$')
+    pCourseEverything = re.compile(r'(.*)$')
+
     # Intial variables
     currentCategory = ''
     course = Course('none')
@@ -47,10 +56,16 @@ def main():
 
     #loop through all courses
     for line in f:
+
+        description = True
+
         m = pCats.match(line)
         if (m != None):
             #get course category
             currentCategory = m.group()
+            description = False
+            #break or continue
+
 
         #get course name
         m = pCourseNameNum.search(line)
@@ -64,6 +79,47 @@ def main():
             course = Course(m.group(1))
             course.number = m.group(2)
             course.category = currentCategory
+            description = False
+
+        m = pCourseGrade.search(line)
+        if (m != None):
+            course.grades = m.group(2)
+            description = False
+
+        m = pCourseCredits.search(line)
+        if(m != None):
+            course.schoolcreds = m.group(2)
+            description = False
+
+        m = pCourseUCCreds.search(line)
+        if (m != None):
+            course.uccreds = m.group(2)
+            description = False
+
+        m = pCoursePrereqs.search(line)
+        if (m != None):
+            course.prereqs = m.group(2)
+            description = False
+
+        m = pCourseInterest.search(line)
+        if (m != None):
+            course.interest = m.group(2)
+            description = False
+
+        m = pCourseLinked.search(line)
+        if (m != None):
+            course.linked = m.group(2)
+            description = False
+
+        m = pCourseTrash.search(line)
+        if (m != None):
+            description = False
+
+        if description == True:
+            m = pCourseEverything.search(line)
+            tempvariable = course.description
+            course.description = ("%r%s" % (tempvariable,(str(m.group(1)))))
+            #print Course.description
 
             #get course category
             # print m.group(2) +": " + m.group(1)
@@ -80,6 +136,7 @@ def main():
         #get description
 
     #print json.dumps(courses)
+    courses.append(copy.copy(course)) #for the last one
     print json.dumps([ob.__dict__ for ob in courses])
 
 if __name__ == '__main__':
