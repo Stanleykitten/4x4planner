@@ -32,6 +32,10 @@ def main():
     #open that dank file tho
     file_location = r"C:\Users\Brendan\Documents\GitHub\4x4planner"
     file_name = r"\courses.txt"
+<<<<<<< HEAD
+=======
+    outfile = "courses.js"
+>>>>>>> b2565a418740c94c7359dcc6e9fb7a8570d295f9
     filepath = file_location + file_name
     f = open(filepath)
 
@@ -138,6 +142,11 @@ def main():
     #print json.dumps(courses)
     courses.append(copy.copy(course)) #for the last one
     print json.dumps([ob.__dict__ for ob in courses])
+<<<<<<< HEAD
+=======
+    outf = open(outfile, 'w')
+    outf.write(json.dumps([ob.__dict__ for ob in courses]))
+>>>>>>> b2565a418740c94c7359dcc6e9fb7a8570d295f9
 
 if __name__ == '__main__':
     main()
