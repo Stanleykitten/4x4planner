@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/courses.js"></script>
+<script>
+
+function CoursesChanged() {
+    var idx = parseInt($("#lstCourses").val());
+    var html = "<ul>";
+    html += "<li>" + courses[idx].category +"</li>";
+    html += "<li>" + courses[idx].name +"</li>";
+    html += "<li>" + courses[idx].number +"</li>";
+    html += "<li>" + courses[idx].grades +"</li>";
+    html += "<li>" + courses[idx].schoolcreds +"</li>";
+    html += "<li>" + courses[idx].uccreds +"</li>";
+    html += "<li>" + courses[idx].prereqs +"</li>";
+    html += "<li>" + courses[idx].interest +"</li>";
+    html += "<li>" + courses[idx].linked +"</li>";
+    html += "</ul>";
+    html += "<p>" + courses[idx].description +"</p>";
+
+    $('#courseContent').html(html);
+
+}
+
+$(document).ready(function(){
+//	var courses = JSON.parse(coursesJson);
+	if (courses) {
+		console.log("Course count: " + courses.length);
+	}
+
+    var courseList = "";
+    for (var i = 0; i < courses.length; i++ ) {
+        courseList += '<option value="'+ i +'">'+courses[i].name+'</option>';
+    }
+    $("#lstCourses").html(courseList);
+
+});
+</script>
+</head>
+<body>
+    <div>Courses:</div>
+    <div>
+        <select id="lstCourses" onchange="CoursesChanged();"></select>
+    </div>
+
+    <div id="courseContent">
+    </div>
+</body>
+</html>
