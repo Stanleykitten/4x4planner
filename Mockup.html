@@ -10,7 +10,11 @@
 	<META NAME="CHANGED" CONTENT="20160731;15010589">
 	<META NAME="CHANGEDBY" CONTENT="Brendan Pyle">
 	<META NAME="CHANGEDBY" CONTENT="Brendan Pyle">
-	<STYLE TYPE="text/css">
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="/js/courses.js"></script>
+
+<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 0.79in }
 	-->
@@ -27,13 +31,35 @@
 			<TABLE WIDTH=100% BORDER=1 BORDERCOLOR="#000000" CELLPADDING=4 CELLSPACING=0>
 				<COL WIDTH=256*>
 				<TR>
-					<TD WIDTH=100% HEIGHT=215 BGCOLOR="#ffffff">
-						<P><BR>
+					<TD WIDTH=100% HEIGHT={{215+375}} BGCOLOR="#ffffff">
+						<P>
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<p>Select a Course:</p>
+
+<select ng-model="selectedCourse" ng-options="x.name for x in courses">
+</select>
+<h2>You selected: {{selectedCourse.name}}</h2>
+<p>Its number is: {{selectedCourse.number}}</p>
+<p>grades: {{selectedCourse.grades}}</p>
+<p>schoolcreds: {{selectedCourse.schoolcreds}}</p>
+<p>uccreds: {{selectedCourse.uccreds}}</p>
+<p>prereqs: {{selectedCourse.prereqs}}</p>
+<p>interest: {{selectedCourse.interest}}</p>
+<p>linked: {{selectedCourse.linked}}</p>
+<p>Description: {{selectedCourse.description}}</p>
 						</P>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.courses = courses;
+});
+</script>
 					</TD>
 				</TR>
 				<TR>
-					<TD WIDTH=100% HEIGHT=375 BGCOLOR="#ffffff">
+					<TD WIDTH=100% HEIGHT=0 BGCOLOR="#ffffff">
 						<P><BR>
 						</P>
 					</TD>
