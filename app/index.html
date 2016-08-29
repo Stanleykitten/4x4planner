@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML>
+<HTML lang="en" ng-app="coursecatApp">
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
 	<TITLE></TITLE>
@@ -11,8 +11,9 @@
 	<META NAME="CHANGEDBY" CONTENT="Brendan Pyle">
 	<META NAME="CHANGEDBY" CONTENT="Brendan Pyle">
 
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="/js/courses.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+<script src="course-search.component.js"></script>
 
 <STYLE TYPE="text/css">
 	<!--
@@ -33,29 +34,7 @@
 				<TR>
 					<TD WIDTH=100% HEIGHT={{215+375}} BGCOLOR="#ffffff">
 						<P>
-<div ng-app="myApp" ng-controller="myCtrl">
-	
-<p>Select a Course:</p>
-
-<select ng-model="selectedCourse" ng-options="x.name for x in courses">
-</select>
-<h2>You selected: {{selectedCourse.name}}</h2>
-<p>Its number is: {{selectedCourse.number}}</p>
-<p>grades: {{selectedCourse.grades}}</p>
-<p>schoolcreds: {{selectedCourse.schoolcreds}}</p>
-<p>uccreds: {{selectedCourse.uccreds}}</p>
-<p>prereqs: {{selectedCourse.prereqs}}</p>
-<p>interest: {{selectedCourse.interest}}</p>
-<p>linked: {{selectedCourse.linked}}</p>
-<p>Description: {{selectedCourse.description}}</p>
-						</P>
-</div>
-<script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.courses = courses;
-});
-</script>
+<course-search></course-search>
 					</TD>
 				</TR>
 				<TR>
@@ -223,7 +202,7 @@ app.controller('myCtrl', function($scope) {
 				<TR VALIGN=TOP>
 					<TD WIDTH=50% BGCOLOR="#ffffff">
 						<P ALIGN=LEFT><BR>
-	1					</P>
+						</P>
 					</TD>
 					<TD WIDTH=50% BGCOLOR="#ffffff">
 						<P ALIGN=LEFT><BR>
